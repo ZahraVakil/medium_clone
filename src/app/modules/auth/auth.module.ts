@@ -13,4 +13,4 @@ import { HttpClientModule } from '@angular/common/http';
          AuthRoutingModule,  HttpClientModule],
     exports: [],
   })
-  export class  AuthModule {}
+  export class  AuthModule{}
