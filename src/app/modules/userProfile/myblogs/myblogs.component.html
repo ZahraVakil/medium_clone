@@ -1,0 +1,56 @@
+<div class="container mx-auto px-4 py-8">
+    <div *ngIf="isLoading" class="flex justify-center items-center">
+      <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600"></div> <!-- Loading spinner -->
+    </div>
+  
+    <!-- Show articles when data is loaded -->
+    <div *ngIf="!isLoading" class="space-y-8">
+      <!-- Each Article -->
+      <div class="bg-white shadow-md rounded-lg p-6" *ngFor="let article of articles">
+        <div class="flex justify-between items-center">
+          <!-- Author Information -->
+          <div class="flex items-center space-x-4">
+            <img
+              src="{{ article.author.image }}"
+              alt="Author"
+              class="w-12 h-12 rounded-full"
+            />
+            <div>
+              <p class="text-gray-800 font-bold">{{ article.author.username }}</p>
+              <p class="text-gray-500 text-sm">Created at: {{ article.createdAt | date }}</p>
+            </div>
+          </div>
+  
+          <!-- Update and Delete Buttons -->
+          <div class="flex space-x-4">
+            <button
+              class="bg-yellow-100 text-yellow-600 px-4 py-1 rounded-md hover:bg-yellow-200"
+              [routerLink]="['/article/updatearticle', article.slug]"
+            >
+              <i class="fas fa-edit"></i> Update
+            </button>
+            <button
+              class="bg-red-100 text-red-600 px-4 py-1 rounded-md hover:bg-red-200"
+              (click)="deleteArticle(article)"
+            >
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+  
+        <!-- Article Title and Description -->
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">{{ article.title }}</h2>
+          <p class="text-gray-600 mb-4">{{ article.description }}</p>
+        </div>
+  
+        <!-- Tags -->
+        <div class="flex space-x-2 mb-4">
+          <span *ngFor="let tag of article.tagList" class="bg-gray-200 px-2 py-1 rounded-md text-gray-700">
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  

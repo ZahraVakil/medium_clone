@@ -1,0 +1,25 @@
+<div class="container mx-auto px-4 py-8">
+    <div *ngIf="isLoading" class="flex justify-center items-center min-h-screen"> 
+      <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600"></div> 
+    </div>
+  
+    <div *ngIf="!isLoading" class="flex flex-col items-center bg-white shadow-lg rounded-lg p-8 border border-gray-300">
+      <!-- Profile Picture -->
+      <img
+        src="{{ user?.image || 'https://via.placeholder.com/150' }}"
+        alt="Profile Picture"
+        class="w-24 h-24 rounded-full mb-4 shadow-md"
+      />
+  
+      <!-- User Information -->
+      <h1 class="text-3xl font-bold text-gray-800">{{ user?.username }}</h1>
+      <p class="text-gray-500 text-lg mb-4">{{ user?.bio || 'No bio available' }}</p>
+  
+      <!-- Additional Information -->
+      <div class="text-gray-600 text-sm mb-4">
+        <p>Email: {{ user?.email }}</p>
+        <!-- <p>Joined: {{ user?.createdAt | date }}</p> -->
+      </div>
+    </div>
+  </div>
+  

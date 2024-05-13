@@ -1,0 +1,73 @@
+<nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <a routerLink="/" class="text-2xl font-bold">Medium</a>
+    </div>
+  
+    <div class="flex space-x-6 items-center">
+    <a [routerLink]="isAuthenticated ? '/articles' : '/'" class="text-gray-700 hover:text-black">Home</a>
+  
+      <!-- if user authenticated -->
+      <ng-container *ngIf="isAuthenticated">
+        <a routerLink="/article/createarticle" class="text-gray-700 hover:text-black">Write <i class="fa fa-pencil" aria-hidden="true"></i> </a>
+        <div class="relative" (click)="toggleTag()"> 
+            <a class="text-gray-700 hover:text-black cursor-pointer">Tags</a> 
+      
+            <!-- Dropdown menu for tags -->
+            <div
+              class="absolute top-full left-0 mt-1 w-48 bg-white border rounded-lg shadow-md"
+              [class.hidden]="!isTagOpen"
+            >
+              <ul class="py-2">
+                <li *ngFor="let tag of tags">
+                  <a class="block px-4 py-2 hover:bg-gray-200 cursor-pointer">{{ tag }}</a>
+                  <hr>
+                </li>
+              </ul>
+            </div>
+          </div>
+      
+      </ng-container>
+    </div>
+  
+    <div class="hidden sm:flex items-center mx-6">
+      <input
+        type="text"
+        placeholder="Search..."
+        class="border border-gray-300 rounded-md px-3 py-1 w-48 focus:border-black"
+      />
+    </div>
+  
+    <div class="flex items-center space-x-6">
+      <ng-container *ngIf="!isAuthenticated">
+        <a routerLink="/auth/signup" class="text-gray-700 hover:text-black">Sign In</a>
+        <button routerLink="/signup" class="bg-black text-white px-4 py-2 rounded-md">Get Started</button>
+      </ng-container>
+  
+      <ng-container *ngIf="isAuthenticated">
+        <div class="relative"> 
+          
+          <button
+            class="bg-slate-100 p-2 rounded-full text-custom-green h-12 w-12 border border-custom-green hover:bg-custom-green hover:text-white"
+            (click)="toggleDropdown()"
+          >
+            <img src="{{ loggedInUser.image }}" alt="Avatar" class="w-full h-full rounded-full" />
+          </button>
+  
+          <div
+            class="dropdown-menu absolute z-10 right-0 bg-white border rounded-lg mt-2 py-2 w-32"
+            [class.hidden]="!isDropdownOpen"
+          >
+            <button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"  routerLink="/user/myblogs">My Blogs</button>
+            <button class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" routerLink="/user/profile">My Profile</button>
+            <button
+              (click)="onLogout()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </nav>
+  

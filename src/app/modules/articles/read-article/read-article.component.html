@@ -1,0 +1,56 @@
+<div class="container mx-auto px-4 py-8">
+    <div *ngIf="isLoading" class="flex justify-center items-center">
+        <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-600"></div> <!-- Tailwind spinner -->
+      </div>
+   
+    <div *ngIf="!isLoading" class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+      <!-- Article Title -->
+      <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ article.title }}</h1>
+  
+      <!-- Author Information -->
+      <div class="flex items-center space-x-4 mb-6">
+        <img src="{{ article.author.image }}" alt="Author" class="w-12 h-12 rounded-full" />
+        <div>
+          <p class="text-gray-800 font-bold">{{ article.author.username }}</p>
+          <p class="text-gray-500 text-sm">Created at: {{ article.createdAt | date }}</p>
+        </div>
+        <button
+          class="bg-gray-200 text-gray-800 px-4 py-1 rounded-md hover:bg-gray-300"
+          (click)="followAuthor()"
+        >
+          {{ article.author.following ? 'Following' : 'Follow' }}
+        </button>
+      </div>
+  
+      <!-- Article Body -->
+      <div class="text-gray-700 mb-6">
+        {{ article.body }}
+      </div>
+  
+      <!-- Tags -->
+      <div class="flex space-x-2 mb-6">
+        <span *ngFor="let tag of article.tagList" class="bg-gray-200 px-2 py-1 rounded-md text-gray-700">
+          {{ tag }}
+        </span>
+      </div>
+  
+      <!-- Action Buttons -->
+      <div class="flex space-x-4">
+        <button
+          class="bg-red-100 text-red-600 px-4 py-2 rounded-md hover:bg-red-200"
+          (click)="toggleFavorite()"
+        >
+          <i class="fas fa-heart"></i> {{ article.favoritesCount }}
+        </button>
+  
+        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+          <i class="fas fa-comment"></i> Comment
+        </button>
+        
+        <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
+          <i class="fas fa-share"></i> Share
+        </button>
+      </div>
+    </div>
+  </div>
+  
